@@ -51,4 +51,4 @@ bash
 This project is a work in progress and will be updated as new features are added.
 For educational and demonstration purposes only.
 
-[Back to top](hashtag#Analysing-Scam-Patterns-in-Ethereum-Transactions)
+[Back to top](#Analysing-Scam-Patterns-in-Ethereum-Transactions)
