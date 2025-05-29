@@ -1,25 +1,35 @@
-# Analysing-Scam-Patterns-in-Ethereum-Transactions
+# Analysing Scam Patterns in Ethereum Transactions
 
 ## Overview
-This project aims to analyze Ethereum blockchain transactions to identify patterns associated with scam or fraudulent activity. Using public datasets and the Etherscan API, the project explores transaction behaviors, highlights suspicious addresses, and demonstrates basic compliance analytics techniques.
+This project analyses Ethereum blockchain transactions to identify patterns associated with scam or fraudulent activity. The initial goal was to use up-to-date and reliable scam address data via the Etherscan API. However, due to the lack of accessible, recent, and labeled scam address data through public APIs, the project pivoted to using curated Kaggle datasets. This approach enables deeper exploration of transaction behaviors, highlights suspicious addresses, and demonstrates foundational compliance analytics techniques.
 
 ## Objectives
-Collect and organize Ethereum transaction data, including known scam addresses.
+- **Initial Approach: API-Based Data Collection**
+  - Attempted to gather scam addresses and transaction data using public APIs (e.g., Etherscan).
+  - Intended workflow:
+    - Fetch scam addresses from blacklists.
+    - Check activity and transaction data via API calls.
 
-Explore and visualize transaction patterns.
+  **Challenges:**
+  - Most public scam address lists are outdated and not recently active.
+  - Difficulty obtaining recent, labeled scam data through APIs.
+  - API rate limits and incomplete data hindered large-scale analysis.
 
-Identify features that may indicate fraudulent or suspicious activity.
+- **Pivot to Kaggle Datasets**
+  - Adopted curated, labeled, and often more recent scam address data from Kaggle.
+  - Kaggle datasets include transaction-level details, are easier to work with offline, and are not subject to API rate limits.
 
-Lay the groundwork for future compliance or scam-detection models.
+- **Analysis Goals**
+  - Explore and visualize transaction patterns.
+  - Identify features indicative of fraudulent or suspicious activity.
+  - Lay the groundwork for future compliance or scam-detection models.
 
 ## Data Sources
-Kaggle Ethereum Datasets: For historical transactions and labeled fraud data.
+- **Kaggle Ethereum Datasets:** For historical transactions and labeled fraud data.
+- **Etherscan API:** Used for supplementary live and historical transaction data (where possible).
+- **Public Scam Address Lists:** (e.g., EtherScamDB, EthScamCheck) for reference and cross-validation.
 
-Etherscan API: For live and historical transaction data.
-
-Public scam address lists (e.g., EtherScamDB, EthScamCheck).
-
-Powered by Etherscan.io APIs.
+*Powered by Etherscan.io APIs and Kaggle datasets.*
 
 ## Project Structure
 text
@@ -41,7 +51,7 @@ text
 ## Getting Started
 1. Clone this repository:
 bash
-   ```git clone `https://github.com/yourusername/your-repo-name.git```
+   ```git clone `https://github.com/InsightsByIvy/Analysing-Scam-Patterns-in-Ethereum-Transactions```
 
 2. Install dependencies:
    Run `pip install -r requirements.txt` to install dependencies.
