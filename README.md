@@ -32,13 +32,15 @@ This project analyses Ethereum blockchain transactions to identify patterns asso
 *Powered by Etherscan.io APIs and Kaggle datasets.*
 
 ## Project Structure
-text
+```
 .
 ├── data/                # Raw and processed datasets
 ├── notebooks/           # Jupyter notebooks for analysis
 ├── scripts/             # Python scripts for data collection and processing
 ├── README.md            # Project documentation
 └── requirements.txt     # Python dependencies
+```
+```
 
 ## Tasks 
  * Data Collection (Download and validate datasets, Pull additional data using Etherscan API, Obtain and integrate scam address lists)
