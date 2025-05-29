@@ -40,7 +40,7 @@ This project analyses Ethereum blockchain transactions to identify patterns asso
 ├── README.md            # Project documentation
 └── requirements.txt     # Python dependencies
 ```
-```
+
 
 ## Tasks 
  * Data Collection (Download and validate datasets, Pull additional data using Etherscan API, Obtain and integrate scam address lists)
@@ -60,7 +60,9 @@ bash
 
 
 ## Notes
+
 This project is a work in progress and will be updated as new features are added.
+
 For educational and demonstration purposes only.
 
-[Back to top](#Analysing-Scam-Patterns-in-Ethereum-Transactions)
+[Back to top](#analysing-scam-patterns-in-ethereum-transactions)
