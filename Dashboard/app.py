@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
+import plotly.express as px
 
 
 #Set page configuration
@@ -14,7 +15,7 @@ def load_data():
     df = pd.read_csv('../Data/Features/feature_ethereum_data_with_ratios.csv')
     return df
 df = load_data()
-
+st.write("COLUMNS IN DF:", df.columns.tolist())
 
 # Sidebar
 st.sidebar.header("Navigation")
@@ -55,3 +56,22 @@ elif section == "User Segmentation":
     # Display unique addresses
     st.write(f"Total Unique Addresses: {df['address'].nunique()}")
     st.write(f"Total Scam Addresses: {int(df['flag'].sum())}")
+
+# Feature Analysis Section
+elif section == "Feature Analysis":
+    st.subheader("Transaction Patterns")
+
+    tab1, tab2 = st.tabs(["Average Transaction Size", "Transaction Count"])
+
+
+    with tab1:
+        fig, ax = plt.subplots(figsize=(10, 6))
+        sns.histplot(
+            data = df[df["avg_tx_size"].notna()],
+            x="avg_tx_size",
+            hue="flag",
+            bins=50,
+            log_scale=True,
+            ax=ax
+        )
+        st.pyplot(fig)
