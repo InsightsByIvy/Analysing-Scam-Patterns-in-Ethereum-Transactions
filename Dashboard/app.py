@@ -15,7 +15,7 @@ def load_data():
     df = pd.read_csv('../Data/Features/feature_ethereum_data_with_ratios.csv')
     return df
 df = load_data()
-st.write("COLUMNS IN DF:", df.columns.tolist())
+
 
 # Sidebar
 st.sidebar.header("Navigation")
