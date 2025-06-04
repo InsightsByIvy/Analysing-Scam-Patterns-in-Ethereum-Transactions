@@ -1,4 +1,5 @@
 import streamlit as st
-from streamlit_option_menu import option_menu
-from pages import home, about, contact
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
 
