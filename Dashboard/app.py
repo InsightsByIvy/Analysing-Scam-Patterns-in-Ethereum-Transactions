@@ -11,7 +11,9 @@ st.set_page_config(
 # --- Load Data ---
 @st.cache_data(ttl=3600)
 def load_data():
-    data_path = Path("..") / "Data" / "Features" / "feature_ethereum_data_with_ratios.csv"
+    # Ensure the path works regardless of where Streamlit runs from
+    base_path = Path(__file__).resolve().parent
+    data_path = base_path.parent / "Data" / "Features" / "feature_ethereum_data_with_ratios.csv"
     return pd.read_csv(data_path)
 
 df = load_data()
