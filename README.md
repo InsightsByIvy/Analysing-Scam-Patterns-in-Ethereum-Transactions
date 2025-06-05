@@ -94,7 +94,7 @@ Ethereum-Scam-Pattern-Analysis/
 
 
 Live Demo
-👉 View the Streamlit Dashboard Here
+👉 View the Streamlit Dashboard [Here](https://analysing-scam-patterns-in-ethereum-transactions.streamlit.app/)
 
 ## Notes
 
