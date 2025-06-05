@@ -7,7 +7,7 @@ backgroundColor = "#F7F4F1"    # Light neutral background to contrast visuals
 secondaryBackgroundColor = "#FFF9F6"  # Slightly lighter for cards/sidebars
 
 # Text
-textColor = "#2E2E2E"          # High contrast dark text
+textColor = "#2F3E46"          # High contrast dark text
 font = "monospace"            # Clean and modern font
 
 # Chart accent (for charts like Plotly/Matplotlib if they follow theme)
