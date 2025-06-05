@@ -1,29 +1,29 @@
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
 import plotly.express as px
-import numpy as np
+from pathlib import Path
 
 st.set_page_config(
     page_title="Ethereum Scam Transaction Dashboard",
     layout="wide"
 )
 
-# Load your data
-@st.cache_data
+# --- Load Data ---
+@st.cache_data(ttl=3600)
 def load_data():
-    return pd.read_csv("../Data/Features/feature_ethereum_data_with_ratios.csv")
+    data_path = Path("..") / "Data" / "Features" / "feature_ethereum_data_with_ratios.csv"
+    return pd.read_csv(data_path)
 
 df = load_data()
 
 # --- Data Preparation ---
 df['total_value'] = df['total_ether_sent'] + df['total_ether_received']
 df['tx_count'] = df['sent_tnx'] + df['received_tnx']
-df['avg_tx_size'] = np.where(df['sent_tnx'] > 0, df['total_ether_sent'] / df['sent_tnx'], np.nan)
+df['avg_tx_size'] = (df['total_ether_sent'] / df['sent_tnx']).mask(df['sent_tnx'] == 0)
 df['sent_ratio'] = df['sent_tnx'] / (df['sent_tnx'] + df['received_tnx'] + 1e-5)
 
 # --- Sidebar Filters ---
-st.sidebar.header("Filter Transactions")
+st.sidebar.header("🔎 Filter Transactions")
 min_value = float(df['total_value'].min())
 max_value = float(df['total_value'].max())
 value_range = st.sidebar.slider(
@@ -31,7 +31,7 @@ value_range = st.sidebar.slider(
 )
 scam_only = st.sidebar.checkbox("Show only scam addresses", value=False)
 
-# Apply filters
+# --- Apply Filters ---
 filtered_df = df[
     (df['total_value'] >= value_range[0]) &
     (df['total_value'] <= value_range[1])
@@ -39,44 +39,40 @@ filtered_df = df[
 if scam_only:
     filtered_df = filtered_df[filtered_df['flag'] == 1]
 
-# --- KPI Metrics ---
-st.title("Ethereum Scam Transaction Analysis")
+# --- KPI Section ---
+st.title("💸 Ethereum Scam Transaction Analysis")
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("Unique Addresses", filtered_df['address'].nunique())
-col2.metric("Scam Addresses", int(filtered_df['flag'].sum()))
-col3.metric("Scam %", f"{filtered_df['flag'].mean() * 100:.2f}%" if len(filtered_df) else "0.00%")
-col4.metric("Total Transactions", int(filtered_df['tx_count'].sum()))
+col1.metric("🧑‍💼 Unique Addresses", filtered_df['address'].nunique())
+col2.metric("⚠️ Scam Addresses", int(filtered_df['flag'].sum()))
+col3.metric("📊 Scam %", f"{filtered_df['flag'].mean() * 100:.2f}%" if len(filtered_df) else "0.00%")
+col4.metric("🔁 Total Transactions", int(filtered_df['tx_count'].sum()))
 
 st.markdown("---")
 
-# --- Median Table for Scam vs Non-Scam ---
-st.subheader("Median Values: Scam vs. Non-Scam")
+# --- Median Table ---
+st.subheader("📐 Median Values: Scam vs. Non-Scam")
 median_table = filtered_df.groupby('flag')[['avg_tx_size', 'tx_count', 'total_ether_sent']].median().rename(
     index={0: "Non-Scam", 1: "Scam"}
 )
 st.dataframe(median_table.style.format("{:.2f}"), use_container_width=True)
 
-# --- Distribution of Average Transaction Size by Scam Flag (Log Scale) ---
-st.subheader("Sent Ratio vs. Average Transaction Size")
+# --- Scatter Plot ---
+st.subheader("📉 Sent Ratio vs. Average Transaction Size")
 fig = px.scatter(
     df,
     x='sent_ratio',
     y='avg_tx_size',
     color=df['flag'].map({0: 'Non-Scam', 1: 'Scam'}),
-    color_discrete_map={'Scam': '#354f52', 'Non-Scam': '#84a98c'},
-    labels={'color': 'Address Type', 'sent_ratio': 'Sent Ratio', 'avg_tx_size': 'Average TX Size'}
-)
-fig.update_layout(
-    xaxis_title='Sent Ratio',
-    yaxis_title='Average Transaction Size (ETH)',
-    legend_title='Address Type'
+    color_discrete_map={'Scam': '#D55E00', 'Non-Scam': '#0072B2'},
+    labels={'color': 'Address Type', 'sent_ratio': 'Sent Ratio', 'avg_tx_size': 'Average TX Size'},
+    title="Sent Ratio vs. Average Transaction Size (ETH)"
 )
 st.plotly_chart(fig, use_container_width=True)
 
 st.markdown("---")
 
-# --- User Segmentation Pie Chart ---
-st.subheader("User Segmentation: Sender/Receiver/Both")
+# --- Segmentation Pie ---
+st.subheader("🧭 User Segmentation: Sender / Receiver / Both")
 senders = set(df[df['sent_tnx'] > 0]['address'])
 receivers = set(df[df['received_tnx'] > 0]['address'])
 sender_only = senders - receivers
@@ -94,9 +90,9 @@ fig_seg = px.pie(
     names="Type",
     color="Type",
     color_discrete_map={
-        "Sender Only": "#52796f",
-        "Receiver Only": "#84a98c",
-        "Both": "#354f52"
+        "Sender Only": "#E69F00",
+        "Receiver Only": "#56B4E9",
+        "Both": "#009E73"
     },
     hole=0.5
 )
@@ -105,33 +101,39 @@ st.plotly_chart(fig_seg, use_container_width=True)
 
 st.markdown("---")
 
-# --- Sent Ratio Boxplot ---
-st.subheader("Sent Ratio by Scam Flag")
+# --- Boxplot ---
+st.subheader("📦 Sent Ratio by Scam Flag")
 box_df = filtered_df[filtered_df['sent_ratio'].notna() & filtered_df['flag'].notna()]
 fig_box = px.box(
     box_df, 
     x=box_df["flag"].map({0: "Non-Scam", 1: "Scam"}),
     y="sent_ratio",
     color=box_df["flag"].map({0: "Non-Scam", 1: "Scam"}),
-    color_discrete_map={"Scam": "#354f52", "Non-Scam": "#84a98c"},
+    color_discrete_map={"Scam": "#D55E00", "Non-Scam": "#0072B2"},
     points="all",
     labels={"x": "Address Type", "sent_ratio": "Sent Ratio"},
-    title=None
+    title="Distribution of Sent Ratio by Scam Status"
 )
 fig_box.update_layout(showlegend=False)
 st.plotly_chart(fig_box, use_container_width=True)
 
 st.markdown("---")
 
-# --- Pie Chart: Scam vs Non-Scam Addresses ---
-st.subheader("Scam vs. Non-Scam Addresses")
+# --- Scam vs. Non-Scam Pie ---
+st.subheader("🧮 Scam vs. Non-Scam Addresses")
 scam_counts = filtered_df['flag'].value_counts().rename({0: 'Non-Scam', 1: 'Scam'})
 fig_pie = px.pie(
     names=scam_counts.index,
     values=scam_counts.values,
     hole=0.5,
     color=scam_counts.index,
-    color_discrete_map={'Scam': '#354f52', 'Non-Scam': '#84a98c'},
+    color_discrete_map = {
+    'Scam': '#E56B6F',
+    'Non-Scam': '#6D597A',
+    'Sender Only': '#B56576',
+    'Receiver Only': '#EAAC8B',
+    'Both': '#355070'
+},
     title="Scam vs. Non-Scam Addresses"
 )
 fig_pie.update_traces(textinfo='percent+label')
@@ -139,8 +141,9 @@ st.plotly_chart(fig_pie, use_container_width=True)
 
 st.markdown("---")
 
-# --- Top Addresses by Total Value ---
-st.subheader("Top 10 Addresses by Total Transaction Value")
+# --- Top 10 Addresses Table ---
+st.subheader("🏆 Top 10 Addresses by Total Transaction Value")
+st.caption("Top 10 based on combined sent and received ETH")
 top_addresses = (
     filtered_df.groupby('address')['total_value']
     .sum()
@@ -151,4 +154,4 @@ top_addresses = (
 st.dataframe(top_addresses, hide_index=True, use_container_width=True)
 
 st.markdown("---")
-st.caption("Data source: Your Ethereum dataset | Dashboard by [Your Name]")
+st.caption("Data source: Kaggle Ethereum dataset | Dashboard by Ivy Kepiro")
