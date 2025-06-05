@@ -7,6 +7,17 @@ This project explores transaction patterns on the Ethereum blockchain to identif
 
 The initial goal was to use up-to-date and reliable scam address data via the Etherscan API. However, due to the lack of accessible, recent, and labeled scam address data through public APIs, the project pivoted to using curated Kaggle datasets. This approach enables deeper exploration of transaction behaviors, highlights suspicious addresses, and demonstrates foundational compliance analytics techniques.
 
+## Screenshots of the Analysis
+
+Streamlit Dashboard Snapshot
+![Dashboard](Images/dashboard.png)
+
+Eliminating Outliers in Jupyter Notebook
+![Outliers](Images/outliers.png)
+
+Checking Wallet Distribution in Jupyter Notebook
+![Distribution](Images/distribution.png)
+
 ## Objectives
 - **Initial Approach: API-Based Data Collection**
   - Attempted to gather scam addresses and transaction data using public APIs (e.g., Etherscan).
