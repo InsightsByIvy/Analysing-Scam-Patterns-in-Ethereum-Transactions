@@ -1,10 +1,15 @@
 [theme]
-base="light"
-primaryColor = "#2F3E46"
+# Primary colors for interactivity (buttons, sliders, etc.)
+primaryColor = "#E56B6F"       # Bright Coral for CTAs
 
-# backgroundColor = "#CAD2C5"
-backgroundColor = "#CAD2C5"
-# secondaryBackgroundColor = "#84A98C"
-secondaryBackgroundColor = "#84A98C"
-textColor = "#2F3E46"
-font = "sans serif"
+# Backgrounds
+backgroundColor = "#F7F4F1"    # Light neutral background to contrast visuals
+secondaryBackgroundColor = "#FFF9F6"  # Slightly lighter for cards/sidebars
+
+# Text
+textColor = "#2E2E2E"          # High contrast dark text
+font = "monospace"            # Clean and modern font
+
+# Chart accent (for charts like Plotly/Matplotlib if they follow theme)
+accentColor = "#6D597A"        # Dusty Lavender as a base for chart coloring
+font = "monospace"

@@ -63,7 +63,7 @@ fig = px.scatter(
     x='sent_ratio',
     y='avg_tx_size',
     color=df['flag'].map({0: 'Non-Scam', 1: 'Scam'}),
-    color_discrete_map={'Scam': '#D55E00', 'Non-Scam': '#0072B2'},
+    color_discrete_map={'Scam': '#E56B6F', 'Non-Scam': '#355070'},
     labels={'color': 'Address Type', 'sent_ratio': 'Sent Ratio', 'avg_tx_size': 'Average TX Size'},
     title="Sent Ratio vs. Average Transaction Size (ETH)"
 )
@@ -90,9 +90,9 @@ fig_seg = px.pie(
     names="Type",
     color="Type",
     color_discrete_map={
-        "Sender Only": "#E69F00",
-        "Receiver Only": "#56B4E9",
-        "Both": "#009E73"
+        "Sender Only": "#CAD2C5",
+        "Receiver Only": "#EAAC8B",
+        "Both": "#2F3E46"
     },
     hole=0.5
 )
@@ -109,7 +109,7 @@ fig_box = px.box(
     x=box_df["flag"].map({0: "Non-Scam", 1: "Scam"}),
     y="sent_ratio",
     color=box_df["flag"].map({0: "Non-Scam", 1: "Scam"}),
-    color_discrete_map={"Scam": "#D55E00", "Non-Scam": "#0072B2"},
+    color_discrete_map={"Scam": "#B56576", "Non-Scam": "#355070"},
     points="all",
     labels={"x": "Address Type", "sent_ratio": "Sent Ratio"},
     title="Distribution of Sent Ratio by Scam Status"

@@ -1,7 +1,11 @@
 # Analysing Scam Patterns in Ethereum Transactions
 
+![Thumbnail](Images/Ivy%20Kepiro.png)
+
 ## Overview
-This project analyses Ethereum blockchain transactions to identify patterns associated with scam or fraudulent activity. The initial goal was to use up-to-date and reliable scam address data via the Etherscan API. However, due to the lack of accessible, recent, and labeled scam address data through public APIs, the project pivoted to using curated Kaggle datasets. This approach enables deeper exploration of transaction behaviors, highlights suspicious addresses, and demonstrates foundational compliance analytics techniques.
+This project explores transaction patterns on the Ethereum blockchain to identify and analyze scam-related behaviors. Using a combination of data science techniques and interactive dashboards, it aims to highlight distinguishing features between scam and non-scam addresses, and to provide actionable insights for the crypto community.
+
+The initial goal was to use up-to-date and reliable scam address data via the Etherscan API. However, due to the lack of accessible, recent, and labeled scam address data through public APIs, the project pivoted to using curated Kaggle datasets. This approach enables deeper exploration of transaction behaviors, highlights suspicious addresses, and demonstrates foundational compliance analytics techniques.
 
 ## Objectives
 - **Initial Approach: API-Based Data Collection**
@@ -10,19 +14,40 @@ This project analyses Ethereum blockchain transactions to identify patterns asso
     - Fetch scam addresses from blacklists.
     - Check activity and transaction data via API calls.
 
-  **Challenges:**
-  - Most public scam address lists are outdated and not recently active.
-  - Difficulty obtaining recent, labeled scam data through APIs.
-  - API rate limits and incomplete data hindered large-scale analysis.
-
-- **Pivot to Kaggle Datasets**
-  - Adopted curated, labeled, and often more recent scam address data from Kaggle.
-  - Kaggle datasets include transaction-level details, are easier to work with offline, and are not subject to API rate limits.
-
 - **Analysis Goals**
   - Explore and visualize transaction patterns.
   - Identify features indicative of fraudulent or suspicious activity.
   - Lay the groundwork for future compliance or scam-detection models.
+
+
+## Challenges & Lessons Learned
+**Data Sourcing Difficulties:**
+ * Most public scam address lists are outdated and not recently active.
+ * Obtaining recent, labeled scam data through APIs proved difficult; APIs often have strict rate limits and can return incomplete data, making large-scale analysis challenging.
+
+**Pivot to Kaggle Datasets:**
+ * To address these issues, I adopted curated, labeled, and often more recent scam address datasets from Kaggle.
+ * Kaggle datasets provided transaction-level details, were easier to work with offline, and were not subject to API rate limits or data incompleteness.
+ * This pivot enabled more robust exploration as the data was more reliable than what could be obtained from public lists or direct API calls.
+
+**Data Quality & Imbalance:**
+ * The datasets are highly imbalanced, with far fewer scam transactions than legitimate ones, requiring careful preprocessing and consideration in analysis.
+ * Addressed missing values, zeros, and outliers to ensure meaningful feature engineering.
+
+**Visualisation Issues:**
+ * Some charts in Streamlit (especially those using log scales or visualising skewed data) were difficult to interpret due to data distribution (many zeros or extreme outliers).
+ * Required creative alternatives and filtering to present clear, actionable insights.
+
+**Dependency & Code Management:**
+ * Streamlined requirements.txt to include only essential packages, reducing errors and simplifying collaboration.
+ * Cleaned up unused imports and dependencies for a smoother workflow.
+
+
+## Key Features
+- **Data Cleaning & Exploration:** Jupyter notebooks for initial data checks and feature engineering.
+- **Interactive Dashboard:** Streamlit app for visualising scam vs. non-scam transaction patterns.
+- **Custom Visualisations**: Includes bar charts, histograms, behavioral segmentation, and more.
+- **API Integration:** Demonstrates fetching live data from the Etherscan API.
 
 ## Data Sources
 - **Kaggle Ethereum Datasets:** For historical transactions and labeled fraud data.
@@ -33,17 +58,26 @@ This project analyses Ethereum blockchain transactions to identify patterns asso
 
 ## Project Structure
 ```
-.
-├── data/                # Raw and processed datasets
-├── notebooks/           # Jupyter notebooks for analysis
-├── scripts/             # Python scripts for data collection and processing
-├── README.md            # Project documentation
-└── requirements.txt     # Python dependencies
+Ethereum-Scam-Pattern-Analysis/               
+├── Data/                          # Raw and processed datasets
+│   ├── raw/
+│   └── clean/
+│   └── features/
+├── Dashboard/                     # Interactive Visualisation app
+├── Images/                        # Images used
+├── Notebooks/                     # Jupyter notebooks for analysis
+│   └── etherscan_api_demo.ipynb
+│   └── initial_check.ipynb
+│   └── feature_engineering.ipynb
+│   └── analysis.ipynb
+├── Scripts/                       # Python scripts for data collection and processing
+├── README.md                      # Project documentation
+└── requirements.txt               # Python dependencies
+└── app.py
 ```
 
-
 ## Tasks 
- * Data Collection (Download and validate datasets, Pull additional data using Etherscan API, Obtain and integrate scam address lists)
+ * Data Collection (download and validate datasets, pull additional data using Etherscan API, obtain and integrate scam address lists)
  * Data Cleaning & Preparation
  * Exploratory Data Analysis (EDA)
  * Visualization of Transaction Patterns
@@ -52,12 +86,15 @@ This project analyses Ethereum blockchain transactions to identify patterns asso
 
 ## Getting Started
 1. Clone this repository:
-bash
+
    ```git clone `https://github.com/InsightsByIvy/Analysing-Scam-Patterns-in-Ethereum-Transactions```
 
 2. Install dependencies:
    Run `pip install -r requirements.txt` to install dependencies.
 
+
+Live Demo
+👉 View the Streamlit Dashboard Here
 
 ## Notes
 
