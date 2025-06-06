@@ -48,13 +48,13 @@ Ethereum-Scam-Pattern-Analysis/
 
 ## Screenshots of the Analysis
 
-Streamlit Dashboard Snapshot
+Streamlit Interactive Dashboard Snapshot
 
-![Dashboard](Images/dashboard.png)
+![Dashboard](Images/dashboard2.png)
 
 <br>
 
-Eliminating Outliers in Jupyter Notebook
+Eliminating Outliers to have a better chart in Jupyter Notebook
 
 ![Outliers](Images/outliers.png)
 
@@ -65,12 +65,12 @@ Checking Wallet Distribution in Jupyter Notebook
 ![Distribution](Images/distribution.png)
 
 ## Tasks 
- * Data Collection (download and validate datasets, pull additional data using Etherscan API, obtain and integrate scam address lists)
- * Data Cleaning & Preparation
+ * Data Collection (download and validate datasets from Kaggle, pull additional data using Etherscan API, obtain and integrate scam address lists)
+ * Data Cleaning & Preparation (in Jupyter Notebook)
  * Exploratory Data Analysis (EDA)
- * Visualization of Transaction Patterns
+ * Visualization of Outliers (Jupyter Notebook)
  * Initial Scam/Fraud Detection Logic
- * Reporting & Documentation
+ * Reporting & Documentation (using Streamlit Dashboard)
 
 ## Challenges & Lessons Learned
 **Data Sourcing Difficulties:**
