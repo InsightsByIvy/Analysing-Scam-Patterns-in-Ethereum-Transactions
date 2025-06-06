@@ -42,24 +42,24 @@ if scam_only:
     filtered_df = filtered_df[filtered_df['flag'] == 1]
 
 # --- KPI Section ---
-st.title("💸 Ethereum Scam Transaction Analysis")
+st.title("Ethereum Scam Transaction Analysis")
 col1, col2, col3, col4 = st.columns(4)
-col1.metric("🧑‍💼 Unique Addresses", filtered_df['address'].nunique())
-col2.metric("⚠️ Scam Addresses", int(filtered_df['flag'].sum()))
-col3.metric("📊 Scam %", f"{filtered_df['flag'].mean() * 100:.2f}%" if len(filtered_df) else "0.00%")
-col4.metric("🔁 Total Transactions", int(filtered_df['tx_count'].sum()))
+col1.metric("Unique Addresses", filtered_df['address'].nunique())
+col2.metric("Scam Addresses", int(filtered_df['flag'].sum()))
+col3.metric("Scam %", f"{filtered_df['flag'].mean() * 100:.2f}%" if len(filtered_df) else "0.00%")
+col4.metric("Total Transactions", int(filtered_df['tx_count'].sum()))
 
 st.markdown("---")
 
 # --- Median Table ---
-st.subheader("📐 Median Values: Scam vs. Non-Scam")
+st.subheader("Median Values: Scam vs. Non-Scam")
 median_table = filtered_df.groupby('flag')[['avg_tx_size', 'tx_count', 'total_ether_sent']].median().rename(
     index={0: "Non-Scam", 1: "Scam"}
 )
 st.dataframe(median_table.style.format("{:.2f}"), use_container_width=True)
 
 # --- Scatter Plot ---
-st.subheader("📉 Sent Ratio vs. Average Transaction Size")
+st.subheader("Sent Ratio vs. Average Transaction Size")
 fig = px.scatter(
     df,
     x='sent_ratio',
@@ -74,7 +74,7 @@ st.plotly_chart(fig, use_container_width=True)
 st.markdown("---")
 
 # --- Segmentation Pie ---
-st.subheader("🧭 User Segmentation: Sender / Receiver / Both")
+st.subheader("User Segmentation: Sender / Receiver / Both")
 senders = set(df[df['sent_tnx'] > 0]['address'])
 receivers = set(df[df['received_tnx'] > 0]['address'])
 sender_only = senders - receivers
@@ -104,7 +104,7 @@ st.plotly_chart(fig_seg, use_container_width=True)
 st.markdown("---")
 
 # --- Boxplot ---
-st.subheader("📦 Sent Ratio by Scam Flag")
+st.subheader("Sent Ratio by Scam Flag")
 box_df = filtered_df[filtered_df['sent_ratio'].notna() & filtered_df['flag'].notna()]
 fig_box = px.box(
     box_df, 
@@ -122,7 +122,7 @@ st.plotly_chart(fig_box, use_container_width=True)
 st.markdown("---")
 
 # --- Scam vs. Non-Scam Pie ---
-st.subheader("🧮 Scam vs. Non-Scam Addresses")
+st.subheader("Scam vs. Non-Scam Addresses")
 scam_counts = filtered_df['flag'].value_counts().rename({0: 'Non-Scam', 1: 'Scam'})
 fig_pie = px.pie(
     names=scam_counts.index,
