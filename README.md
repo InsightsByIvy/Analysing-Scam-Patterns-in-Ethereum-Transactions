@@ -3,7 +3,7 @@
 ![Thumbnail](Images/Ivy%20Kepiro.png)
 
 ## Overview
-This project explores transaction patterns on the Ethereum blockchain to identify and analyse scam-related behaviours. Using a combination of data analytics techniques and interactive dashboards, it aims to highlight distinguishing features between scam and non-scam addresses, and to provide actionable insights for the crypto community.
+This project explores transaction patterns on the Ethereum blockchain to identify and analyse scam-related behaviours. Using a combination of data analytics techniques and interactive dashboards, highlights distinguishing features between scam and non-scam addresses and provides actionable insights for the crypto community.
 
 The initial goal was to use up-to-date and reliable scam address data via the Etherscan API. However, due to the lack of accessible, recent, and labeled scam address data through public APIs, the project pivoted to using curated Kaggle dataset. 
 
@@ -29,15 +29,16 @@ Ethereum-Scam-Pattern-Analysis/
 
 ## Objectives
 - **Initial Approach: API-Based Data Collection**
-  - Attempted to gather scam addresses and transaction data using public APIs (e.g., Etherscan).
-  - Intended workflow:
-    - Fetch scam addresses from blacklists.
-    - Check activity and transaction data via API calls.
+  - Fetch ERC-20 transactions for target addresses via the Etherscan API, including safe timestamp conversion to UTC timezone-aware datetime objects.
 
-- **Analysis Goals**
-  - Explore and visualise transaction patterns.
-  - Identify features indicative of fraudulent or suspicious activity.
-  - Lay the groundwork for future compliance or scam-detection models.
+- **Exploratory Data Analysis**
+  - Analyse token transfer volumes, counterparties, and transaction timelines to extract behavioral indicators of suspicious activity.
+
+- **Pattern Identification**
+ - Highlight typical scam/fraud features such as high-frequency self-transactions, use of stablecoins (USDT, USDC), and concentrated counterparties.
+
+- **Interactive Visualisation**
+ - Provide Streamlit dashboard to visualise patterns and outliers in scam and non-scam transaction data.
 
 
 ## Key Features
@@ -45,6 +46,7 @@ Ethereum-Scam-Pattern-Analysis/
 - **_Interactive Dashboard_:** Streamlit app for visualising scam vs. non-scam transaction patterns.
 - **_Custom Visualisations_**: Includes bar charts, histograms, behavioral segmentation, and more.
 - **_API Integration_:** Demonstrates fetching live data from the Etherscan API.
+- **Wallet Behavioral Analysis:** Detailed examination of wallet interactions revealing suspicious patterns
 
 ## Screenshots of the Analysis
 
@@ -67,7 +69,7 @@ Checking Wallet Distribution in Jupyter Notebook
 ## Tasks 
  * Data Collection (download and validate datasets from Kaggle, pull additional data using Etherscan API, obtain and integrate scam address lists)
  * Data Cleaning & Preparation (in Jupyter Notebook)
- * Exploratory Data Analysis (EDA)
+ * Exploratory Data Analysis
  * Visualization of Outliers (Jupyter Notebook)
  * Initial Scam/Fraud Detection Logic
  * Reporting & Documentation (using Streamlit Dashboard)
